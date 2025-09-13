@@ -1,32 +1,48 @@
 package com.payments.util;
 
 import com.payments.model.Payment;
+import com.payments.service.LookupService;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class PaymentLogWriter {
 
-    private static final ExecutorService logExecutor = Executors.newSingleThreadExecutor();
+    public static void logPaymentAsync(Payment payment, String action, Long performedBy,
+                                       String oldStatus, String newStatus) {
+        new Thread(() -> {
+            try {
+                // Ensure logs directory exists
+                File logDir = new File("logs");
+                if (!logDir.exists()) logDir.mkdirs();
 
-    public static void writeAsync(Payment payment, String action) {
-        logExecutor.submit(() -> {
-            String date = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
-            String logFile = "logs/payments-" + date + ".log";
-            String line = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) +
-                    " | " + action +
-                    " | id=" + payment.getId() +
-                    " | amount=" + payment.getAmount() +
-                    " | by=user:" + payment.getCreatedBy();
-            try (FileWriter fw = new FileWriter(logFile, true)) {
-                fw.write(line + "\n");
+                String fileName = "logs/payments-" + java.time.LocalDate.now() + ".log";
+
+                try (FileWriter writer = new FileWriter(fileName, true)) {
+                    // Get readable names instead of IDs
+                    String oldStatusName = oldStatus != null ? LookupService.getStatusName(Integer.parseInt(oldStatus)) : null;
+                    String newStatusName = newStatus != null ? LookupService.getStatusName(Integer.parseInt(newStatus)) : null;
+                    String counterpartyName = LookupService.getCounterpartyName(payment.getCounterpartyId());
+                    String bankAccountName = LookupService.getBankAccountName(payment.getBankAccountId());
+                    String performedByName = LookupService.getUsername(performedBy);
+
+                    String logLine = java.time.OffsetDateTime.now() + " | " + action +
+                            " | Payment #" + payment.getId() +
+                            (oldStatusName != null ? " | old_status=" + oldStatusName : "") +
+                            (newStatusName != null ? " | new_status=" + newStatusName : "") +
+                            " | Direction=" + payment.getDirection() +
+                            " | Amount=" + payment.getAmount() + " " + payment.getCurrency() +
+                            " | Counterparty=" + counterpartyName +
+                            " | Bank=" + bankAccountName +
+                            " | Performed_by=" + performedByName +
+                            "\n";
+                    writer.write(logLine);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        });
+        }).start();
     }
+
 }

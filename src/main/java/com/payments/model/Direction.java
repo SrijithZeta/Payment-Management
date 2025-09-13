@@ -1,6 +1,6 @@
 package com.payments.model;
 
-public enum PaymentDirection {
+public enum Direction {
     INCOMING,
     OUTGOING
 }

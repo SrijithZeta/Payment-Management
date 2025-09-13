@@ -4,36 +4,58 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="de7eae22-cfd5-439d-ac88-677c6e5df3b1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/config/DatabaseConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/controller/PaymentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/controller/ReportController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/dto/ReportDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/exception/AppException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/exception/AuthenticationException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/exception/DataAccessException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/exception/DuplicateEmailException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/exception/DuplicateUserException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/repository/IPaymentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/repository/IUserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/repository/PaymentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/repository/RoleRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/repository/UserRoleRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/service/AuditService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/service/IPaymentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/service/IUserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/service/PaymentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/service/ReportService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/util/PaymentLogWriter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/util/ThreadPoolManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="de7eae22-cfd5-439d-ac88-677c6e5df3b1" name="Changes" comment="Added few Repositories and Service">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/controller/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/controller/ManagerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/controller/ViewerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/dto/PaymentDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/dto/PaymentView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/Direction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/Report.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/ReportType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/RoleRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/repository/AuditRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/repository/PaymentRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/repository/UserRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/service/LookupService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/util/UI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Tables.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/config/DatabaseConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/config/DatabaseConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/controller/ReportController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/dto/ReportDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/dto/ReportDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/Attachment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/AuditTrail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/AuditTrail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/BankAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/BankAccount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/Counterparty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/Counterparty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/Payment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/PaymentCategory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/PaymentDirection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/PaymentStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/UserRole.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/repository/IPaymentRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/repository/IUserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/repository/PaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/repository/PaymentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/repository/RoleRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/repository/UserRoleRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/service/AuditService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/service/IPaymentService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/service/IUserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/service/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/service/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/service/ReportService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/util/PaymentLogWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/util/PaymentLogWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/util/ThreadPoolManager.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +66,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -68,13 +91,25 @@
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/srijithreddy/Documents/Track1/Payment-Management/src/main/java/com/payments",
-    "onboarding.tips.debug.path": "/Users/srijithreddy/Documents/Track1/PaymentManagement/src/main/java/tech/zeta/Main.java"
+    "onboarding.tips.debug.path": "/Users/srijithreddy/Documents/Track1/PaymentManagement/src/main/java/tech/zeta/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/com/payments" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.payments.Main" />
+      <module name="PaymentManagement" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -85,6 +120,46 @@
       <option name="presentableId" value="Default" />
       <updated>1757614721902</updated>
     </task>
+    <task id="LOCAL-00001" summary="Added few Repositories and Service">
+      <option name="closed" value="true" />
+      <created>1757704216090</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1757704216090</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added few Repositories and Service" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added few Repositories and Service" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/payments/service/ReportService.java</url>
+          <line>131</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/payments/service/UserService.java</url>
+          <line>211</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

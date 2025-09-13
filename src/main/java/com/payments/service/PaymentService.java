@@ -1,183 +1,132 @@
-// PaymentService.java
 package com.payments.service;
 
-import java.math.BigDecimal;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
-
+import com.payments.dto.PaymentView;
+import com.payments.model.BankAccount;
+import com.payments.model.Counterparty;
 import com.payments.model.Payment;
-import com.payments.model.PaymentDirection;
+import com.payments.model.AuditTrail;
 import com.payments.repository.PaymentRepository;
-import com.payments.dto.ReportDTO;
-import com.payments.util.ThreadPoolManager;
+import com.payments.repository.PaymentRepositoryImpl;
+import com.payments.repository.AuditRepository;
+import com.payments.util.PaymentLogWriter;
 
 import java.util.List;
-import java.util.concurrent.Future;
 
 public class PaymentService {
-    private final PaymentRepository paymentRepository;
-    private final ThreadPoolManager threadPoolManager;
 
-    public PaymentService() {
-        this.paymentRepository = new PaymentRepository();
-        this.threadPoolManager = ThreadPoolManager.getInstance();
+    private final PaymentRepository paymentRepository = new PaymentRepositoryImpl();
+    private final AuditRepository auditRepository = new AuditRepository();
+    private final UserService userService;
+
+
+    public PaymentService(UserService userService) {
+        this.userService = userService;
     }
+
+
 
     public Payment createPayment(Long userId, Payment payment) {
-        // Add validation and business logic here
-        payment.setCreatedBy(userId);
-        return paymentRepository.save(payment);
+        // only FINANCE_MANAGER or ADMIN roles allowed
+        if (!userService.hasRole(userId, "FINANCE_MANAGER") && !userService.hasRole(userId, "ADMIN")) {
+            throw new RuntimeException("User must be FINANCE_MANAGER or ADMIN to create payment");
+        }
+
+        Payment savedPayment = paymentRepository.save(payment);
+        // this is to add into logs for evey payment created
+        AuditTrail audit = new AuditTrail();
+        audit.setTableName("payments");
+        audit.setRecordId(savedPayment.getId());
+        audit.setAction("PAYMENT_CREATED");
+        audit.setPerformedBy(userId);
+        audit.setDetails("{\"direction\":\"" + savedPayment.getDirection() +
+                "\",\"amount\":\"" + savedPayment.getAmount() + "\"}");
+        auditRepository.save(audit);
+
+        PaymentLogWriter.logPaymentAsync(savedPayment, "PAYMENT_CREATED", userId, null, null);
+
+        return savedPayment;
     }
 
-    public Payment updatePaymentStatus(Long userId, Long paymentId, Long statusId) {
-        Payment payment = paymentRepository.findById(paymentId)
-                .orElseThrow(() -> new RuntimeException("Payment not found"));
-        payment.setStatusId(statusId);
-        return paymentRepository.save(payment);
-    }
 
-    public List<Payment> getAllPayments() {
+
+    public List<PaymentView>  listAllPayments(){
         return paymentRepository.findAll();
     }
 
-    public Future<ReportDTO> generateMonthlyReport(Long userId, int year, int month) {
-        return threadPoolManager.getReportExecutor().submit(() -> {
-            ReportDTO report = new ReportDTO();
-            String fileName = String.format("reports/%d-%02d-monthly.csv", year, month);
 
-            // Get all payments for the month
-            List<Payment> payments = paymentRepository.findByYearAndMonth(year, month);
 
-            // Aggregate totals
-            BigDecimal totalIncoming = BigDecimal.ZERO;
-            BigDecimal totalOutgoing = BigDecimal.ZERO;
-            Map<String, BigDecimal> categoryTotals = new HashMap<>();
+    public void updatePaymentStatus(Long userId, Long paymentId, int newStatusId) {
+        Payment payment = paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new RuntimeException("Payment not found"));
 
-            for (Payment payment : payments) {
-                if (payment.getDirection() == PaymentDirection.INCOMING) {
-                    totalIncoming = totalIncoming.add(payment.getAmount());
-                } else {
-                    totalOutgoing = totalOutgoing.add(payment.getAmount());
-                }
+        if (!userService.hasRole(userId, "FINANCE_MANAGER") && !userService.hasRole(userId, "ADMIN")) {
+            throw new RuntimeException("User must be FINANCE_MANAGER or ADMIN to update payment");
+        }
 
-                // Aggregate by category
+        int oldStatusId = payment.getStatusId();
+        payment.setStatusId(newStatusId);
 
-//
-//                String category = payment.getCategory();
-//                categoryTotals.merge(category, payment.getAmount(), BigDecimal::add);
-            }
+        paymentRepository.updateStatus(paymentId, newStatusId);
 
-            // Generate CSV content
-            StringBuilder csv = new StringBuilder();
-            csv.append("Direction,Amount,Currency,Category,Status,Date\n");
+        AuditTrail audit = new AuditTrail();
+        audit.setTableName("payments");
+        audit.setRecordId(payment.getId());
+        audit.setAction("STATUS_CHANGE");
+        audit.setPerformedBy(userId);
+        audit.setDetails("{\"old_status\":" + oldStatusId + ", \"new_status\":" + newStatusId + "}");
+        auditRepository.save(audit);
 
-            for (Payment payment : payments) {
-                csv.append(String.format("%s,%s,%s,%s,%s,%s\n",
-                        payment.getDirection(),
-                        payment.getAmount(),
-                        payment.getCurrency(),
-//                        payment.getCategory(),
-                        payment.getStatusId(),
-                        payment.getCreatedAt()
-                ));
-            }
-
-            // Write to file
-            Files.write(Paths.get(fileName), csv.toString().getBytes());
-
-            // Create summary
-            String summary = String.format(
-                    "Total incoming: %.2f%nTotal outgoing: %.2f%nBy category:%n%s",
-                    totalIncoming,
-                    totalOutgoing,
-                    categoryTotals.entrySet().stream()
-                            .map(e -> String.format("- %s: %.2f", e.getKey(), e.getValue()))
-                            .collect(Collectors.joining("\n"))
-            );
-
-            report.setReportPath(fileName);
-            report.setSummary(summary);
-            return report;
-        });
+        PaymentLogWriter.logPaymentAsync(payment, "STATUS_CHANGE", userId,
+                String.valueOf(oldStatusId), String.valueOf(newStatusId));
     }
 
-    public Future<ReportDTO> generateQuarterlyReport(Long userId, int year, int quarter) {
-        return threadPoolManager.getReportExecutor().submit(() -> {
-            ReportDTO report = new ReportDTO();
-            String fileName = String.format("reports/%d-Q%d-quarterly.csv", year, quarter);
 
-            // Calculate quarter months
-            int startMonth = (quarter - 1) * 3 + 1;
-            int endMonth = startMonth + 2;
 
-            // Get all payments for the quarter
-            List<Payment> payments = paymentRepository.findByYearAndMonthRange(year, startMonth, endMonth);
-
-            // Aggregate totals
-            BigDecimal totalIncoming = BigDecimal.ZERO;
-            BigDecimal totalOutgoing = BigDecimal.ZERO;
-            Map<String, BigDecimal> categoryTotals = new HashMap<>();
-            Map<Integer, BigDecimal> monthlyTotals = new HashMap<>();
-
-            for (Payment payment : payments) {
-                if (payment.getDirection() == PaymentDirection.INCOMING) {
-                    totalIncoming = totalIncoming.add(payment.getAmount());
-                } else {
-                    totalOutgoing = totalOutgoing.add(payment.getAmount());
-                }
-
-                // Aggregate by category and month
-
-//
-//                String category = payment.getCategory();
-//                categoryTotals.merge(category, payment.getAmount(), BigDecimal::add);
-
-                LocalDate date = payment.getCreatedAt().toLocalDate();
-                monthlyTotals.merge(date.getMonthValue(), payment.getAmount(), BigDecimal::add);
+    public List<Counterparty> listCounterparties() {
+        String sql = "SELECT id, name, details, created_at FROM counterparties ORDER BY id";
+        try {
+            var connection = com.payments.config.DatabaseConfig.getConnection();
+             var preparedStatement = connection.prepareStatement(sql);
+             var resultSet = preparedStatement.executeQuery();
+            List<Counterparty> list = new java.util.ArrayList<>();
+            while (resultSet.next()) {
+                Counterparty c = new Counterparty();
+                c.setId(resultSet.getLong("id"));
+                c.setName(resultSet.getString("name"));
+                c.setDetails(resultSet.getString("details"));
+                c.setCreatedAt(resultSet.getObject("created_at", java.time.OffsetDateTime.class));
+                list.add(c);
             }
+            return list;
 
-            // Generate CSV content
-            StringBuilder csv = new StringBuilder();
-            csv.append("Direction,Amount,Currency,Category,Status,Date\n");
-
-            for (Payment payment : payments) {
-                csv.append(String.format("%s,%s,%s,%s,%s,%s\n",
-                        payment.getDirection(),
-                        payment.getAmount(),
-                        payment.getCurrency(),
-//                        payment.getCategory(),
-                        payment.getStatusId(),
-                        payment.getCreatedAt()
-                ));
-            }
-
-            // Write to file
-            Files.write(Paths.get(fileName), csv.toString().getBytes());
-
-            // Create summary
-            String summary = String.format(
-                    "Quarter %d, %d%nTotal incoming: %.2f%nTotal outgoing: %.2f%n%n" +
-                            "By category:%n%s%n%nMonthly breakdown:%n%s",
-                    quarter,
-                    year,
-                    totalIncoming,
-                    totalOutgoing,
-                    categoryTotals.entrySet().stream()
-                            .map(e -> String.format("- %s: %.2f", e.getKey(), e.getValue()))
-                            .collect(Collectors.joining("\n")),
-                    monthlyTotals.entrySet().stream()
-                            .sorted(Map.Entry.comparingByKey())
-                            .map(e -> String.format("- Month %d: %.2f", e.getKey(), e.getValue()))
-                            .collect(Collectors.joining("\n"))
-            );
-
-            report.setReportPath(fileName);
-            report.setSummary(summary);
-            return report;
-        });
+        } catch (java.sql.SQLException e) {
+            throw new RuntimeException("Error fetching counterparties", e);
+        }
     }
+
+
+
+    public List<BankAccount> listBankAccounts() {
+        String sql = "SELECT id, bank_name, account_number, created_at FROM bank_accounts ORDER BY id";
+
+        try (var connection = com.payments.config.DatabaseConfig.getConnection();
+             var preparedStatement = connection.prepareStatement(sql);
+             var resultSet = preparedStatement.executeQuery()) {
+
+            List<BankAccount> list = new java.util.ArrayList<>();
+            while (resultSet.next()) {
+                BankAccount bank = new BankAccount();
+                bank.setId(resultSet.getLong("id"));
+                bank.setBankName(resultSet.getString("bank_name"));
+                bank.setAccountNumber(resultSet.getString("account_number"));
+                bank.setCreatedAt(resultSet.getObject("created_at", java.time.OffsetDateTime.class));
+                list.add(bank);
+            }
+            return list;
+
+        } catch (java.sql.SQLException e) {
+            throw new RuntimeException("Error fetching bank accounts", e);
+        }
+    }
+
 }
