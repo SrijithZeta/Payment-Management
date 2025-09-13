@@ -1,0 +1,8 @@
+2025-09-14 00:00:51 [main] INFO  com.payments.service.ReportService - Generating monthly report for 2025/9
+2025-09-14 00:00:51 [main] INFO  com.payments.service.ReportService - Report exported: monthly_report_2025_9.csv
+2025-09-14 00:00:51 [main] INFO  com.payments.service.ReportService - Report metadata saved with ID: 5
+2025-09-14 00:00:51 [main] INFO  com.payments.service.ReportService - Monthly report generated: 14 records
+2025-09-14 00:01:03 [main] INFO  com.payments.service.ReportService - Generating quarterly report for Q3/2025
+2025-09-14 00:01:03 [main] INFO  com.payments.service.ReportService - Report exported: quarterly_report_2025_Q3.csv
+2025-09-14 00:01:03 [main] INFO  com.payments.service.ReportService - Report metadata saved with ID: 6
+2025-09-14 00:01:03 [main] INFO  com.payments.service.ReportService - Quarterly report generated: 14 records
