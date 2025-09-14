@@ -10,6 +10,16 @@ A secure internal Payments Management System for fintech startups to track incom
 - **Audit Trail**: Complete transaction history tracking
 - **User Management**: User registration, authentication, and role assignment
 
+
+##  System Architecture
+
+### Design Patterns Used
+- **MVC Pattern**: Clear separation of Model, View, and Controller
+- **Repository Pattern**: Abstracted data access layer
+- **Service Layer Pattern**: Business logic encapsulation
+- **DTO Pattern**: Data transfer objects for clean API design
+- **Exception Hierarchy**: Structured error handling
+
 ## Technology Stack
 
 - **Java 17+**
