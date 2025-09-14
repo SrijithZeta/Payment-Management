@@ -2,6 +2,8 @@
 
 A secure internal Payments Management System for fintech startups to track incoming and outgoing payments with role-based access control.
 
+Checkout the working video [Click here for Drive link](https://drive.google.com/file/d/1glQyW63VGzvvWZC0LJqTVec8eNv_Dp9Y/view?usp=sharing)
+
 ## Features
 
 - **Role-based Access Control**: Admin, Finance Manager, and Viewer roles
