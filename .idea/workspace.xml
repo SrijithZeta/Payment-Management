@@ -4,69 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="de7eae22-cfd5-439d-ac88-677c6e5df3b1" name="Changes" comment="Added few Repositories and Service">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/controller/AdminController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/controller/ManagerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/controller/ViewerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/dto/PaymentDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/dto/PaymentView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/Direction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/Report.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/ReportType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/RoleRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/repository/AuditRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/repository/PaymentRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/repository/UserRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/service/LookupService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/payments/util/UI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Tables.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
+    <list default="true" id="de7eae22-cfd5-439d-ac88-677c6e5df3b1" name="Changes" comment="Done testing , code coverage , adding Diagrams , Readme">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/config/DatabaseConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/config/DatabaseConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/controller/ReportController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/dto/ReportDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/dto/ReportDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/Attachment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/AuditTrail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/AuditTrail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/BankAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/BankAccount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/Counterparty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/Counterparty.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/PaymentCategory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/PaymentDirection.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/PaymentStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/model/UserRole.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/repository/IPaymentRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/repository/IUserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/repository/PaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/repository/PaymentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/repository/RoleRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/repository/UserRoleRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/service/AuditService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/service/IPaymentService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/service/IUserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/service/PaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/service/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/service/ReportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/util/PaymentLogWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/payments/util/PaymentLogWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/payments/util/ThreadPoolManager.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myAddOrReplace" value="0" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
         <option value="Enum" />
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -86,23 +40,61 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "JUnit.AllTests.executor": "Coverage",
+    "JUnit.ExceptionTest.executor": "Run",
+    "JUnit.ExceptionTest.testAuthenticationException_Inheritance.executor": "Coverage",
+    "JUnit.PaymentServiceTest.executor": "Coverage",
+    "JUnit.PaymentServiceTest.testCreatePayment_Unauthorized.executor": "Run",
+    "JUnit.PaymentServiceTest.testDirectionEnum_Values.executor": "Run",
+    "JUnit.PaymentServiceTest.testUpdatePaymentStatus_NonAuthorizedUser_ThrowsException.executor": "Run",
+    "JUnit.PaymentServiceTest.testUpdatePaymentStatus_PaymentNotFound.executor": "Run",
+    "JUnit.UserServiceTest.executor": "Coverage",
+    "JUnit.UserServiceTest.testAssignRole_NonAdmin_ThrowsAuthenticationException.executor": "Run",
+    "JUnit.UserServiceTest.testLoginFailureWrongPassword.executor": "Run",
+    "JUnit.UserServiceTest.testLoginSuccess.executor": "Debug",
+    "JUnit.UserServiceTest.testLogin_InvalidCredentials_ReturnsEmpty.executor": "Run",
+    "JUnit.UserServiceTest.testReviewRoleRequest_NonAdmin_ThrowsAuthenticationException.executor": "Run",
+    "Maven.payments-management [clean].executor": "Run",
+    "Maven.payments-management [compile].executor": "Run",
+    "Maven.payments-management [package].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
+    "last_directory_selection": "/Users/srijithreddy/Documents/Track1/Payment-Management/src/main/java/com/payments/exception",
     "last_opened_file_path": "/Users/srijithreddy/Documents/Track1/Payment-Management/src/main/java/com/payments",
     "onboarding.tips.debug.path": "/Users/srijithreddy/Documents/Track1/PaymentManagement/src/main/java/tech/zeta/Main.java",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "vcs.Git"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/com/payments" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Diagrams/ClassDiagrams" />
+      <recent name="$PROJECT_DIR$/Diagrams" />
+      <recent name="$PROJECT_DIR$/Diagrams/SequenceDiagrams" />
+      <recent name="$PROJECT_DIR$/QuarterlyReports" />
+      <recent name="$PROJECT_DIR$/MonthlyReports" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.payments" />
+      <recent name="com.payments.exception" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.payments.service" />
+    </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.AllTests">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.payments.Main" />
       <module name="PaymentManagement" />
@@ -110,6 +102,93 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AllTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PaymentManagement" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.payments.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.payments" />
+      <option name="MAIN_CLASS_NAME" value="com.payments.AllTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExceptionTest.testAuthenticationException_Inheritance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PaymentManagement" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.payments.exception.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.payments.exception" />
+      <option name="MAIN_CLASS_NAME" value="com.payments.exception.ExceptionTest" />
+      <option name="METHOD_NAME" value="testAuthenticationException_Inheritance" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PaymentServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PaymentManagement" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.payments.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.payments.service" />
+      <option name="MAIN_CLASS_NAME" value="com.payments.service.PaymentServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PaymentServiceTest.testCreatePayment_Unauthorized" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PaymentManagement" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.payments.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.payments.service" />
+      <option name="MAIN_CLASS_NAME" value="com.payments.service.PaymentServiceTest" />
+      <option name="METHOD_NAME" value="testCreatePayment_Unauthorized" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PaymentServiceTest.testDirectionEnum_Values" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PaymentManagement" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.payments.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.payments.service" />
+      <option name="MAIN_CLASS_NAME" value="com.payments.service.PaymentServiceTest" />
+      <option name="METHOD_NAME" value="testDirectionEnum_Values" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.AllTests" />
+        <item itemvalue="JUnit.ExceptionTest.testAuthenticationException_Inheritance" />
+        <item itemvalue="JUnit.PaymentServiceTest.testDirectionEnum_Values" />
+        <item itemvalue="JUnit.PaymentServiceTest" />
+        <item itemvalue="JUnit.PaymentServiceTest.testCreatePayment_Unauthorized" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -128,7 +207,63 @@
       <option name="project" value="LOCAL" />
       <updated>1757704216090</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added few Repositories , Services and Controllers&#10;Build a basic CLI UI for Payment Management System &#10;Todo - testing , code coverage , adding Diagrams , Readme">
+      <option name="closed" value="true" />
+      <created>1757789080652</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1757789080653</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added few Repositories , Services and Controllers&#10;Build a basic CLI UI for Payment Management System &#10;Todo - testing , code coverage , adding Diagrams , Readme">
+      <option name="closed" value="true" />
+      <created>1757789122812</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1757789122812</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Done testing , code coverage , adding Diagrams , Readme">
+      <option name="closed" value="true" />
+      <created>1757847901520</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1757847901520</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Done testing , code coverage , adding Diagrams , Readme">
+      <option name="closed" value="true" />
+      <created>1757847950418</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1757847950418</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Done testing , code coverage , adding Diagrams , Readme">
+      <option name="closed" value="true" />
+      <created>1757848762721</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1757848762721</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Done testing , code coverage , adding Diagrams , Readme">
+      <option name="closed" value="true" />
+      <created>1757848773231</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1757848773231</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Done testing , code coverage , adding Diagrams , Readme">
+      <option name="closed" value="true" />
+      <created>1757848802275</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1757848802275</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -144,22 +279,22 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added few Repositories and Service" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added few Repositories and Service" />
+    <MESSAGE value="Added few Repositories , Services and Controllers&#10;Build a basic CLI UI for Payment Management System &#10;Todo - testing , code coverage , adding Diagrams , Readme" />
+    <MESSAGE value="Done testing , code coverage , adding Diagrams , Readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="Done testing , code coverage , adding Diagrams , Readme" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/payments/service/ReportService.java</url>
-          <line>131</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/payments/service/UserService.java</url>
-          <line>211</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Payment_Management$PaymentServiceTest.ic" NAME="PaymentServiceTest Coverage Results" MODIFIED="1757842890923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>com.payments.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Payment_Management$AllTests.ic" NAME="AllTests Coverage Results" MODIFIED="1757843859300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>com.payments.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Payment_Management$ExceptionTest_testAuthenticationException_Inheritance.ic" NAME="ExceptionTest.testAuthenticationException_Inheritance Coverage Results" MODIFIED="1757843634070" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>com.payments.exception.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Payment_Management$UserServiceTest.ic" NAME="UserServiceTest Coverage Results" MODIFIED="1757841601283" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>com.payments.service.*</FILTER>
+    </SUITE>
   </component>
 </project>

@@ -1,8 +1,4 @@
 
-select * from counterparties;
-select * from bank_accounts
-
-
 --show all tables
 SELECT table_name
 FROM information_schema.tables
@@ -121,7 +117,7 @@ CREATE TABLE role_requests (
 );
 
 select * from role_requests
-truncate role_requests
+--truncate role_requests
 
 select * from users
 select * from user_roles

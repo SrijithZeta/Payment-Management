@@ -34,7 +34,8 @@ public class UI{
         System.out.println("7. Generate Quarterly Report");
         System.out.println("8. View Report History");
         System.out.println("9. Check My Roles");
-        System.out.println("10. Logout");
+        System.out.println("10. Delete User Account");
+        System.out.println("11. Logout");
         System.out.print("Choose: ");
     }
 

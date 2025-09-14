@@ -1,6 +1,5 @@
 package com.payments.model;
 
-//new
 
 public class Role {
     private Integer id;

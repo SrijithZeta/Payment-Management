@@ -1,0 +1,154 @@
+ID: 2
+Direction: OUTGOING
+Category: Vendor Payment
+Status: Completed
+Amount: 12000.00 INR
+Counterparty: XYZ Supplies
+Bank Account: 1234567890
+Description: Vendor settlement - supplies
+Created By: admin
+Created At: 2025-09-13T08:53:34.151672Z
+--------------------------------------------------
+ID: 3
+Direction: OUTGOING
+Category: Vendor Payment
+Status: Completed
+Amount: 12000.00 INR
+Counterparty: XYZ Supplies
+Bank Account: 1234567890
+Description: Vendor settlement
+Created By: alice
+Created At: 2025-09-13T09:04:54.997390Z
+--------------------------------------------------
+ID: 4
+Direction: OUTGOING
+Category: Vendor Payment
+Status: Processing
+Amount: 12000.00 INR
+Counterparty: XYZ Supplies
+Bank Account: 1234567890
+Description: Vendor settlement
+Created By: alice
+Created At: 2025-09-13T09:18:31.989641Z
+--------------------------------------------------
+ID: 5
+Direction: OUTGOING
+Category: Vendor Payment
+Status: Pending
+Amount: 12000.00 INR
+Counterparty: XYZ Supplies
+Bank Account: 1234567890
+Description: Vendor settlement - supplies
+Created By: alice
+Created At: 2025-09-13T09:26:58.876105Z
+--------------------------------------------------
+ID: 6
+Direction: OUTGOING
+Category: Vendor Payment
+Status: Processing
+Amount: 12000.00 INR
+Counterparty: XYZ Supplies
+Bank Account: 1234567890
+Description: Vendor settlement - supplies
+Created By: alice
+Created At: 2025-09-13T09:27:59.315898Z
+--------------------------------------------------
+ID: 7
+Direction: OUTGOING
+Category: Vendor Payment
+Status: Processing
+Amount: 12000.00 INR
+Counterparty: XYZ Supplies
+Bank Account: 1234567890
+Description: Vendor settlement - supplies
+Created By: alice
+Created At: 2025-09-13T09:28:24.640215Z
+--------------------------------------------------
+ID: 8
+Direction: OUTGOING
+Category: Vendor Payment
+Status: Processing
+Amount: 12000.00 INR
+Counterparty: XYZ Supplies
+Bank Account: 1234567890
+Description: Vendor settlement - supplies
+Created By: alice
+Created At: 2025-09-13T09:29:28.953961Z
+--------------------------------------------------
+ID: 9
+Direction: OUTGOING
+Category: Vendor Payment
+Status: Processing
+Amount: 12000.00 INR
+Counterparty: XYZ Supplies
+Bank Account: 1234567890
+Description: Vendor settlement - supplies
+Created By: alice
+Created At: 2025-09-13T09:30:37.646140Z
+--------------------------------------------------
+ID: 10
+Direction: OUTGOING
+Category: Vendor Payment
+Status: Processing
+Amount: 12000.00 INR
+Counterparty: XYZ Supplies
+Bank Account: 1234567890
+Description: Vendor settlement - supplies
+Created By: alice
+Created At: 2025-09-13T09:33:04.294624Z
+--------------------------------------------------
+ID: 13
+Direction: INCOMING
+Category: Client Invoice
+Status: Pending
+Amount: 12.00 INR
+Counterparty: HDFC
+Bank Account: 1234567890
+Description: for payzApp service
+Created By: kk
+Created At: 2025-09-13T14:18:04.880099Z
+--------------------------------------------------
+ID: 14
+Direction: INCOMING
+Category: Client Invoice
+Status: Pending
+Amount: 123.00 INR
+Counterparty: ICICI
+Bank Account: 1234567890
+Description: for app service
+Created By: kk
+Created At: 2025-09-13T14:25:28.361123Z
+--------------------------------------------------
+ID: 15
+Direction: INCOMING
+Category: Client Invoice
+Status: Completed
+Amount: 9000.00 INR
+Counterparty: REW Bay
+Bank Account: 8493205794
+Description: for app service and ai models
+Created By: kk
+Created At: 2025-09-13T16:37:20.571932Z
+--------------------------------------------------
+ID: 16
+Direction: INCOMING
+Category: Client Invoice
+Status: Pending
+Amount: 9090.00 INR
+Counterparty: REW Bay
+Bank Account: 1234567890
+Description: for doing service
+Created By: kk
+Created At: 2025-09-13T17:00:32.762948Z
+--------------------------------------------------
+ID: 17
+Direction: INCOMING
+Category: Client Invoice
+Status: Pending
+Amount: 1234.00 INR
+Counterparty: ICICI
+Bank Account: 1234567890
+Description: for provind services
+Created By: kk
+Created At: 2025-09-13T18:29:43.934370Z
+--------------------------------------------------

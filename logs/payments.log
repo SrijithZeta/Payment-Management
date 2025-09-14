@@ -6,3 +6,21 @@
 2025-09-14 00:01:03 [main] INFO  com.payments.service.ReportService - Report exported: quarterly_report_2025_Q3.csv
 2025-09-14 00:01:03 [main] INFO  com.payments.service.ReportService - Report metadata saved with ID: 6
 2025-09-14 00:01:03 [main] INFO  com.payments.service.ReportService - Quarterly report generated: 14 records
+2025-09-14 10:27:01 [main] INFO  com.payments.service.ReportService - Report exported to text file: monthly_report_2025_9.txt
+2025-09-14 10:27:02 [main] INFO  com.payments.service.ReportService - Report metadata saved with ID: 7
+2025-09-14 10:31:58 [main] INFO  com.payments.service.ReportService - Report exported to text file: quarterly_report_2025_Q3.txt
+2025-09-14 10:31:58 [main] INFO  com.payments.service.ReportService - Report metadata saved with ID: 8
+2025-09-14 10:38:13 [main] INFO  com.payments.service.ReportService - Exported report to: monthly_report_2025_9.txt
+2025-09-14 10:38:13 [main] INFO  com.payments.service.ReportService - Saved report metadata: ID = 9
+2025-09-14 10:38:32 [main] INFO  com.payments.service.ReportService - Exported report to: quarterly_report_2025_Q3.txt
+2025-09-14 10:38:32 [main] INFO  com.payments.service.ReportService - Saved report metadata: ID = 10
+2025-09-14 10:39:48 [main] INFO  com.payments.service.ReportService - Exported report to: monthly_report_2025_9.txt
+2025-09-14 10:39:48 [main] INFO  com.payments.service.ReportService - Saved report metadata: ID = 11
+2025-09-14 10:39:55 [main] INFO  com.payments.service.ReportService - Exported report to: quarterly_report_2025_Q3.txt
+2025-09-14 10:39:55 [main] INFO  com.payments.service.ReportService - Saved report metadata: ID = 12
+2025-09-14 10:41:05 [main] INFO  com.payments.service.ReportService - Exported report to: quarterly_report_2025_Q1.txt
+2025-09-14 10:41:05 [main] INFO  com.payments.service.ReportService - Saved report metadata: ID = 13
+2025-09-14 10:45:33 [main] INFO  com.payments.service.ReportService - Exported report to: MonthlyReports/monthly_report_2025_1.txt
+2025-09-14 10:45:33 [main] INFO  com.payments.service.ReportService - Saved report metadata: ID = 14
+2025-09-14 10:45:44 [main] INFO  com.payments.service.ReportService - Exported report to: QuarterlyReports/quarterly_report_2025_Q3.txt
+2025-09-14 10:45:44 [main] INFO  com.payments.service.ReportService - Saved report metadata: ID = 15

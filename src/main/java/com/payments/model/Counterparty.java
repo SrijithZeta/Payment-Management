@@ -1,5 +1,4 @@
 package com.payments.model;
-//new
 import java.time.OffsetDateTime;
 
 public class Counterparty {

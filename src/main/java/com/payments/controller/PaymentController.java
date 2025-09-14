@@ -27,6 +27,7 @@ public class PaymentController {
         this.paymentService = new PaymentService(userService);
     }
 
+
     public void createPayment(User user) {
         if (!userService.hasRole(user.getId(), "FINANCE_MANAGER") &&
                 !userService.hasRole(user.getId(), "ADMIN")) {
@@ -69,13 +70,14 @@ public class PaymentController {
             System.out.print("Enter new counterparty name: ");
             String newCounterparty = scanner.nextLine();
 
-            try (Connection conn = DatabaseConfig.getConnection()) {
-                PreparedStatement ps = conn.prepareStatement(
+            try {
+                Connection connection = DatabaseConfig.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(
                         "INSERT INTO counterparties(name, details, created_at) VALUES (?, ?::jsonb, now()) RETURNING id"
                 );
-                ps.setString(1, newCounterparty);
-                ps.setString(2, "{}"); // empty JSON object for details
-                ResultSet rs = ps.executeQuery();
+                preparedStatement.setString(1, newCounterparty);
+                preparedStatement.setString(2, "{}"); // empty JSON object for details
+                ResultSet rs = preparedStatement.executeQuery();
                 if (rs.next()) {
                     counterpartyId = rs.getLong("id");
                     System.out.println("Added new counterparty with ID: " + counterpartyId);
@@ -135,8 +137,9 @@ public class PaymentController {
         }
 
         paymentService.updatePaymentStatus(user.getId(), paymentId, statusId);
-        System.out.println("✅ Updated Payment ID " + paymentId + " to status " + statusId);
+        System.out.println("Updated Payment ID " + paymentId + " to status " + statusId);
     }
+
 
 
     public void viewPayments() {
@@ -148,7 +151,6 @@ public class PaymentController {
             payments.forEach(System.out::println);
         }
     }
-
 
 
     public void generateMonthlyReport(User currentUser) {
@@ -172,6 +174,8 @@ public class PaymentController {
         }
     }
 
+
+
     public void generateQuarterlyReport(User currentUser) {
         try {
             System.out.print("Enter year (e.g., 2025): ");
@@ -192,6 +196,8 @@ public class PaymentController {
             System.err.println("Error generating quarterly report: " + e.getMessage());
         }
     }
+
+
 
     public void viewReportHistory() {
         try {

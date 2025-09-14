@@ -1,0 +1,43 @@
+1. Class Diagram (Overall Architecture)
+This diagram shows the structure of the Payment Management System across different layers:
+Application Layer – Main and Application classes that start and orchestrate the system.
+Controller Layer – Controllers like AdminController, PaymentController, ViewerController, and ManagerController handle user interactions and pass requests to services.
+Service Layer – Business logic (e.g., UserService, PaymentService, ReportService) that uses repositories and validates user roles.
+Repository Layer – Handles persistence (UserRepository, PaymentRepository, AuditRepository).
+Model Layer – Core entities like User, Payment, Report, BankAccount, Counterparty, RoleRequest.
+Exception Layer – Custom exceptions (AppException, PaymentNotFoundException, InsufficientPermissionException) to handle errors gracefully.
+DTO Layer – Data Transfer Objects like PaymentView to present processed data to users.
+Purpose: Provides a bird’s-eye view of system components, their relationships (has, uses, belongs to), and how data flows across layers.
+
+
+2. Admin Sequence Diagram (Role Approval Flow)
+This sequence explains how an Admin approves/rejects a role request:
+Admin selects "Approve/Reject Role Requests" in the CLI.
+CLI fetches pending role requests from UserService → UserRepository → Database.
+Requests are displayed back to Admin.
+Admin selects a request and approves it.
+UserService updates the user’s role (e.g., to FINANCE_MANAGER) and updates the role request status to APPROVED.
+Database confirms changes, and the Admin gets a success message.
+Purpose: Shows how an Admin manages user roles by coordinating between CLI, service, repository, and database.
+
+
+3. Finance Manager Sequence Diagram (Generate Quarterly Report)
+This diagram illustrates how a Finance Manager generates a quarterly report:
+Finance Manager selects "Generate Quarterly Report".
+CLI calls UserService to validate that the user has FINANCE_MANAGER role.
+Once validated, ReportService initiates report generation.
+PaymentRepository queries the database for relevant payment data (filtered by user, quarter, year).
+Data is aggregated (group by category, month).
+Report is written to a file (CSV/Excel) using the FileSystem.
+File path is returned, and the Finance Manager sees a success message.
+Purpose: Demonstrates end-to-end flow of report generation, from role validation → database queries → aggregation → file creation.
+
+
+4. Viewer Sequence Diagram (View Payments & Reports)
+This diagram explains how a Viewer interacts:
+Viewer selects "View All Payments" or "View Report History".
+CLI sends request to PaymentService or ReportService.
+Services query respective repositories (PaymentRepository, ReportRepository).
+Database returns results.
+CLI displays formatted data to the Viewer.
+Purpose: Captures the read-only capabilities of a Viewer, who can browse data but not modify it.

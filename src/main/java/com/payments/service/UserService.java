@@ -1,6 +1,8 @@
 package com.payments.service;
 
 import com.payments.config.DatabaseConfig;
+import com.payments.exception.AuthenticationException;
+import com.payments.exception.DataAccessException;
 import com.payments.model.RoleRequest;
 import com.payments.model.User;
 import com.payments.repository.UserRepository;
@@ -36,7 +38,7 @@ public class UserService {
             preparedStatement.setLong(1, userId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Error assigning default role", e);
+            throw new DataAccessException("Error assigning default role");
         }
     }
 
@@ -70,34 +72,15 @@ public class UserService {
 
 
 
-    public List<String> getUserRoles(Long userId) {
-        List<String> roles = new ArrayList<>();
-        String sql = "SELECT r.name FROM user_roles ur JOIN roles r ON ur.role_id = r.id WHERE ur.user_id=?";
-        try (Connection connection = DatabaseConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setLong(1, userId);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                roles.add(rs.getString("name"));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error fetching user roles", e);
-        }
-        return roles;
-    }
-
-
-
-
     public void assignRole(Long adminId, Long userId, String roleName) {
         if (!hasRole(adminId, "ADMIN")) {
-            throw new RuntimeException("Only ADMIN can assign roles");
+            throw new AuthenticationException("Only ADMIN can assign roles");
         }
 
         // Check if user already has role
         if (hasRole(userId, roleName)) {
             System.out.println("User ID " + userId + " already has role " + roleName);
-            return; // nothing to do
+            return;
         }
 
         String sql = "INSERT INTO user_roles(user_id, role_id) SELECT ?, id FROM roles WHERE name=?";
@@ -108,7 +91,7 @@ public class UserService {
             preparedStatement.executeUpdate();
             System.out.println("Role " + roleName + " assigned to user ID: " + userId);
         } catch (SQLException e) {
-            throw new RuntimeException("Error assigning role", e);
+            throw new AuthenticationException("Only ADMIN can assign roles");
         }
     }
 
@@ -210,7 +193,7 @@ public class UserService {
     // Admin approves/rejects role request
     public void reviewRoleRequest(Long adminId, Long requestId, boolean approve) {
         if (!hasRole(adminId, "ADMIN")) {
-            throw new RuntimeException("Only ADMIN can review role requests");
+            throw new AuthenticationException("Only ADMIN can review role requests");
         }
 
         String selectSql = "SELECT user_id, role_name FROM role_requests WHERE id=?";
@@ -219,7 +202,7 @@ public class UserService {
              PreparedStatement ps = connection.prepareStatement(selectSql);
             ps.setLong(1, requestId);
             ResultSet rs = ps.executeQuery();
-            if (!rs.next()) throw new RuntimeException("Request not found");
+            if (!rs.next()) throw new DataAccessException("Request not found");
 
             Long userId = rs.getLong("user_id");
             String roleName = rs.getString("role_name");

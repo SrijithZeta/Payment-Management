@@ -20,145 +20,62 @@ public class ReportService {
 
     private static final Logger logger = LoggerFactory.getLogger(ReportService.class);
 
-    public List<PaymentView> getPaymentsBetween(Date start, Date end) {
-        List<PaymentView> list = new ArrayList<>();
-        String sql = "SELECT p.id, p.direction, c.name AS category_name, s.name AS status_name, " +
-                "p.amount, p.currency, cp.name AS counterparty_name, ba.account_number AS bank_account, " +
-                "p.description, u.username AS created_by, p.created_at " +
-                "FROM payments p " +
-                "LEFT JOIN categories c ON p.category_id = c.id " +
-                "LEFT JOIN statuses s ON p.status_id = s.id " +
-                "LEFT JOIN counterparties cp ON p.counterparty_id = cp.id " +
-                "LEFT JOIN bank_accounts ba ON p.bank_account_id = ba.id " +
-                "LEFT JOIN users u ON p.created_by = u.id " +
-                "WHERE p.created_at BETWEEN ? AND ? " +
-                "ORDER BY p.created_at";
-
-        try {
-            Connection connection = DatabaseConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setDate(1, start);
-            preparedStatement.setDate(2, end);
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while (rs.next()) {
-                PaymentView pv = new PaymentView();
-                pv.setId(rs.getLong("id"));
-                pv.setDirection(rs.getString("direction"));
-                pv.setCategoryName(rs.getString("category_name"));
-                pv.setStatusName(rs.getString("status_name"));
-                pv.setAmount(rs.getBigDecimal("amount"));
-                pv.setCurrency(rs.getString("currency"));
-                pv.setCounterpartyName(rs.getString("counterparty_name"));
-                pv.setBankAccount(rs.getString("bank_account"));
-                pv.setDescription(rs.getString("description"));
-                pv.setCreatedBy(rs.getString("created_by"));
-                pv.setCreatedAt(rs.getTimestamp("created_at").toInstant().atOffset(java.time.ZoneOffset.UTC));
-                list.add(pv);
-            }
-        } catch (SQLException e) {
-            logger.error("Error fetching report data", e);
-            throw new RuntimeException("Error fetching report data", e);
-        }
-        return list;
-    }
-
-    public void exportReport(List<PaymentView> payments, String filename) {
-        try (FileWriter writer = new FileWriter(filename)) {
-            writer.write("ID,Direction,Category,Status,Amount,Currency,Counterparty,Bank,Description,CreatedBy,CreatedAt\n");
-            for (PaymentView pv : payments) {
-                writer.write(pv.getId() + "," +
-                        pv.getDirection() + "," +
-                        pv.getCategoryName() + "," +
-                        pv.getStatusName() + "," +
-                        pv.getAmount() + "," +
-                        pv.getCurrency() + "," +
-                        pv.getCounterpartyName() + "," +
-                        pv.getBankAccount() + "," +
-                        pv.getDescription() + "," +
-                        pv.getCreatedBy() + "," +
-                        pv.getCreatedAt() + "\n");
-            }
-            logger.info("Report exported: {}", filename);
-        } catch (IOException e) {
-            logger.error("Error writing report file", e);
-            throw new RuntimeException("Error writing report file", e);
-        }
-    }
-
     public Report generateMonthlyReport(int year, int month, Long generatedBy) {
-        logger.info("Generating monthly report for {}/{}", year, month);
-
         YearMonth ym = YearMonth.of(year, month);
-        Date start = Date.valueOf(ym.atDay(1));
-        Date end = Date.valueOf(ym.atEndOfMonth());
-
-        List<PaymentView> payments = getPaymentsBetween(start, end);
-        String filename = "monthly_report_" + year + "_" + month + ".csv";
-
-        // Calculate totals
-        BigDecimal totalIncoming = BigDecimal.ZERO;
-        BigDecimal totalOutgoing = BigDecimal.ZERO;
-
-        for (PaymentView pv : payments) {
-            if ("INCOMING".equals(pv.getDirection())) {
-                totalIncoming = totalIncoming.add(pv.getAmount());
-            } else if ("OUTGOING".equals(pv.getDirection())) {
-                totalOutgoing = totalOutgoing.add(pv.getAmount());
-            }
-        }
-
-        exportReport(payments, filename);
-
-        // Save report metadata to database
-        Report report = new Report();
-        report.setReportType(ReportType.MONTHLY);
-        report.setYear(year);
-        report.setMonth(month);
-        report.setFilePath(filename);
-        report.setStatus("COMPLETED");
-        report.setGeneratedBy(generatedBy);
-        report.setTotalIncoming(totalIncoming);
-        report.setTotalOutgoing(totalOutgoing);
-        report.setCreatedAt(OffsetDateTime.now());
-
-        saveReportMetadata(report);
-
-        logger.info("Monthly report generated: {} records", payments.size());
-        return report;
+        return generateReport(
+                Date.valueOf(ym.atDay(1)),
+                Date.valueOf(ym.atEndOfMonth()),
+                "monthly_report_" + year + "_" + month + ".txt",
+                ReportType.MONTHLY,
+                year,
+                month,
+                null,
+                generatedBy
+        );
     }
 
     public Report generateQuarterlyReport(int year, int quarter, Long generatedBy) {
-        logger.info("Generating quarterly report for Q{}/{}", quarter, year);
-
         int startMonth = (quarter - 1) * 3 + 1;
         int endMonth = startMonth + 2;
-        Date start = Date.valueOf(YearMonth.of(year, startMonth).atDay(1));
-        Date end = Date.valueOf(YearMonth.of(year, endMonth).atEndOfMonth());
+        return generateReport(
+                Date.valueOf(YearMonth.of(year, startMonth).atDay(1)),
+                Date.valueOf(YearMonth.of(year, endMonth).atEndOfMonth()),
+                "quarterly_report_" + year + "_Q" + quarter + ".txt",
+                ReportType.QUARTERLY,
+                year,
+                null,
+                quarter,
+                generatedBy
+        );
+    }
+
+    private Report generateReport(Date start, Date end, String filename,
+                                  ReportType type, int year, Integer month, Integer quarter, Long generatedBy) {
 
         List<PaymentView> payments = getPaymentsBetween(start, end);
-        String filename = "quarterly_report_" + year + "_Q" + quarter + ".csv";
 
-        // Calculate totals
         BigDecimal totalIncoming = BigDecimal.ZERO;
         BigDecimal totalOutgoing = BigDecimal.ZERO;
 
         for (PaymentView pv : payments) {
-            if ("INCOMING".equals(pv.getDirection())) {
+            if ("INCOMING".equalsIgnoreCase(pv.getDirection())) {
                 totalIncoming = totalIncoming.add(pv.getAmount());
-            } else if ("OUTGOING".equals(pv.getDirection())) {
+            } else if ("OUTGOING".equalsIgnoreCase(pv.getDirection())) {
                 totalOutgoing = totalOutgoing.add(pv.getAmount());
             }
         }
 
-        exportReport(payments, filename);
+        String folder = type == ReportType.MONTHLY ? "MonthlyReports" : "QuarterlyReports";
+        String fullPath = folder + "/" + filename;
 
-        // Save report metadata to database
+        writeToTextFile(payments, fullPath);
+
         Report report = new Report();
-        report.setReportType(ReportType.QUARTERLY);
+        report.setReportType(type);
         report.setYear(year);
+        report.setMonth(month);
         report.setQuarter(quarter);
-        report.setFilePath(filename);
+        report.setFilePath(fullPath);
         report.setStatus("COMPLETED");
         report.setGeneratedBy(generatedBy);
         report.setTotalIncoming(totalIncoming);
@@ -166,87 +83,145 @@ public class ReportService {
         report.setCreatedAt(OffsetDateTime.now());
 
         saveReportMetadata(report);
-
-        logger.info("Quarterly report generated: {} records", payments.size());
         return report;
     }
 
-    private void validateInput(int year, int month, int quarter) {
-        if (year < 2020 || year > 2030) {
-            throw new RuntimeException("Invalid year");
-        }
-        if (month < 1 || month > 12) {
-            throw new RuntimeException("Invalid month");
-        }
-        if (quarter < 1 || quarter > 4) {
-            throw new RuntimeException("Invalid quarter");
+
+    private void writeToTextFile(List<PaymentView> payments, String filename) {
+        try (FileWriter writer = new FileWriter(filename)) {
+            for (PaymentView pv : payments) {
+                writer.write("ID: " + pv.getId() + "\n");
+                writer.write("Direction: " + pv.getDirection() + "\n");
+                writer.write("Category: " + pv.getCategoryName() + "\n");
+                writer.write("Status: " + pv.getStatusName() + "\n");
+                writer.write("Amount: " + pv.getAmount() + " " + pv.getCurrency() + "\n");
+                writer.write("Counterparty: " + pv.getCounterpartyName() + "\n");
+                writer.write("Bank Account: " + pv.getBankAccount() + "\n");
+                writer.write("Description: " + pv.getDescription() + "\n");
+                writer.write("Created By: " + pv.getCreatedBy() + "\n");
+                writer.write("Created At: " + pv.getCreatedAt() + "\n");
+                writer.write("--------------------------------------------------\n");
+            }
+            logger.info("Exported report to: {}", filename);
+        } catch (IOException e) {
+            logger.error("Failed to write report", e);
+            throw new RuntimeException("Error writing report to file", e);
         }
     }
 
-    private void saveReportMetadata(Report report) {
-        String sql = "INSERT INTO reports (report_type, year, month, quarter, file_path, status, " +
-                "generated_by, total_incoming, total_outgoing, created_at) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private List<PaymentView> getPaymentsBetween(Date start, Date end) {
+        List<PaymentView> payments = new ArrayList<>();
+        String sql = """
+            SELECT p.id, p.direction, c.name AS category_name, s.name AS status_name,
+                   p.amount, p.currency, cp.name AS counterparty_name,
+                   ba.account_number AS bank_account, p.description,
+                   u.username AS created_by, p.created_at
+            FROM payments p
+            LEFT JOIN categories c ON p.category_id = c.id
+            LEFT JOIN statuses s ON p.status_id = s.id
+            LEFT JOIN counterparties cp ON p.counterparty_id = cp.id
+            LEFT JOIN bank_accounts ba ON p.bank_account_id = ba.id
+            LEFT JOIN users u ON p.created_by = u.id
+            WHERE p.created_at BETWEEN ? AND ?
+            ORDER BY p.created_at
+        """;
 
-        try (Connection connection = DatabaseConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
-            preparedStatement.setString(1, report.getReportType().name());
-            preparedStatement.setInt(2, report.getYear());
-            preparedStatement.setObject(3, report.getMonth());
-            preparedStatement.setObject(4, report.getQuarter());
-            preparedStatement.setString(5, report.getFilePath());
-            preparedStatement.setString(6, report.getStatus());
-            preparedStatement.setLong(7, report.getGeneratedBy());
-            preparedStatement.setBigDecimal(8, report.getTotalIncoming());
-            preparedStatement.setBigDecimal(9, report.getTotalOutgoing());
-            preparedStatement.setTimestamp(10, Timestamp.from(report.getCreatedAt().toInstant()));
-
-            int affectedRows = preparedStatement.executeUpdate();
-            if (affectedRows == 0) {
-                throw new RuntimeException("Failed to save report metadata");
+        try {
+                Connection connection = DatabaseConfig.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+                stmt.setDate(1, start);
+                stmt.setDate(2, end);
+                try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    PaymentView pv = new PaymentView();
+                    pv.setId(rs.getLong("id"));
+                    pv.setDirection(rs.getString("direction"));
+                    pv.setCategoryName(rs.getString("category_name"));
+                    pv.setStatusName(rs.getString("status_name"));
+                    pv.setAmount(rs.getBigDecimal("amount"));
+                    pv.setCurrency(rs.getString("currency"));
+                    pv.setCounterpartyName(rs.getString("counterparty_name"));
+                    pv.setBankAccount(rs.getString("bank_account"));
+                    pv.setDescription(rs.getString("description"));
+                    pv.setCreatedBy(rs.getString("created_by"));
+                    pv.setCreatedAt(rs.getTimestamp("created_at").toInstant().atOffset(java.time.ZoneOffset.UTC));
+                    payments.add(pv);
+                }
             }
+        } catch (SQLException e) {
+            logger.error("Error fetching payment data", e);
+            throw new RuntimeException("Error loading payment data", e);
+        }
 
-            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    report.setId(generatedKeys.getLong(1));
+        return payments;
+    }
+
+    private void saveReportMetadata(Report report) {
+        String sql = """
+            INSERT INTO reports (report_type, year, month, quarter, file_path, status,
+                                 generated_by, total_incoming, total_outgoing, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """;
+
+        try (
+                Connection connection = DatabaseConfig.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+        ) {
+            stmt.setString(1, report.getReportType().name());
+            stmt.setInt(2, report.getYear());
+            stmt.setObject(3, report.getMonth());
+            stmt.setObject(4, report.getQuarter());
+            stmt.setString(5, report.getFilePath());
+            stmt.setString(6, report.getStatus());
+            stmt.setLong(7, report.getGeneratedBy());
+            stmt.setBigDecimal(8, report.getTotalIncoming());
+            stmt.setBigDecimal(9, report.getTotalOutgoing());
+            stmt.setTimestamp(10, Timestamp.from(report.getCreatedAt().toInstant()));
+
+            int rows = stmt.executeUpdate();
+            if (rows == 0) throw new RuntimeException("Saving report failed");
+
+            try (ResultSet keys = stmt.getGeneratedKeys()) {
+                if (keys.next()) {
+                    report.setId(keys.getLong(1));
                 }
             }
 
-            logger.info("Report metadata saved with ID: {}", report.getId());
-
+            logger.info("Saved report metadata: ID = {}", report.getId());
         } catch (SQLException e) {
             logger.error("Error saving report metadata", e);
-            throw new RuntimeException("Error saving report metadata", e);
+            throw new RuntimeException("Failed to save report metadata", e);
         }
     }
 
     public List<Report> getReportHistory() {
         List<Report> reports = new ArrayList<>();
-        String sql = "SELECT r.*, u.username as generated_by_name " +
-                "FROM reports r " +
-                "LEFT JOIN users u ON r.generated_by = u.id " +
-                "ORDER BY r.created_at DESC";
+        String sql = """
+            SELECT r.*, u.username as generated_by_name
+            FROM reports r
+            LEFT JOIN users u ON r.generated_by = u.id
+            ORDER BY r.created_at DESC
+        """;
 
-        try {
-            Connection connection = DatabaseConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-             ResultSet rs = preparedStatement.executeQuery();
-
+        try (
+                Connection conn = DatabaseConfig.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()
+        ) {
             while (rs.next()) {
-                Report report = new Report();
-                report.setId(rs.getLong("id"));
-                report.setReportType(ReportType.valueOf(rs.getString("report_type")));
-                report.setYear(rs.getInt("year"));
-                report.setMonth(rs.getObject("month", Integer.class));
-                report.setQuarter(rs.getObject("quarter", Integer.class));
-                report.setFilePath(rs.getString("file_path"));
-                report.setStatus(rs.getString("status"));
-                report.setGeneratedBy(rs.getLong("generated_by"));
-                report.setTotalIncoming(rs.getBigDecimal("total_incoming"));
-                report.setTotalOutgoing(rs.getBigDecimal("total_outgoing"));
-                report.setCreatedAt(rs.getTimestamp("created_at").toInstant().atOffset(java.time.ZoneOffset.UTC));
-                reports.add(report);
+                Report r = new Report();
+                r.setId(rs.getLong("id"));
+                r.setReportType(ReportType.valueOf(rs.getString("report_type")));
+                r.setYear(rs.getInt("year"));
+                r.setMonth(rs.getObject("month", Integer.class));
+                r.setQuarter(rs.getObject("quarter", Integer.class));
+                r.setFilePath(rs.getString("file_path"));
+                r.setStatus(rs.getString("status"));
+                r.setGeneratedBy(rs.getLong("generated_by"));
+                r.setTotalIncoming(rs.getBigDecimal("total_incoming"));
+                r.setTotalOutgoing(rs.getBigDecimal("total_outgoing"));
+                r.setCreatedAt(rs.getTimestamp("created_at").toInstant().atOffset(java.time.ZoneOffset.UTC));
+                reports.add(r);
             }
 
         } catch (SQLException e) {

@@ -20,8 +20,9 @@ public class PaymentRepositoryImpl implements PaymentRepository {
         String sql = "INSERT INTO payments(direction, category_id, status_id, amount, currency, counterparty_id, bank_account_id, description, created_by) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id, created_at";
 
-        try (Connection connection = DatabaseConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try {
+            Connection connection = DatabaseConfig.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setString(1, payment.getDirection().name());
             preparedStatement.setInt(2, payment.getCategoryId());
@@ -49,8 +50,9 @@ public class PaymentRepositoryImpl implements PaymentRepository {
     @Override
     public Optional<Payment> findById(Long id) {
         String sql = "SELECT * FROM payments WHERE id=?";
-        try (Connection connection = DatabaseConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try {
+            Connection connection = DatabaseConfig.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
@@ -78,8 +80,9 @@ public class PaymentRepositoryImpl implements PaymentRepository {
                 "LEFT JOIN users u ON p.created_by = u.id " +
                 "ORDER BY p.created_at DESC";
 
-        try (Connection connection = DatabaseConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try {
+            Connection connection = DatabaseConfig.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 PaymentView pv = new PaymentView();
@@ -109,8 +112,9 @@ public class PaymentRepositoryImpl implements PaymentRepository {
     @Override
     public void updateStatus(Long paymentId, Integer statusId) {
         String sql = "UPDATE payments SET status_id=?, updated_at=NOW() WHERE id=?";
-        try (Connection connection = DatabaseConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try {
+            Connection connection = DatabaseConfig.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, statusId);
             preparedStatement.setLong(2, paymentId);
             preparedStatement.executeUpdate();

@@ -2,7 +2,7 @@ package com.payments.model;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-//new
+
 public class Payment {
     private Long id;
     private Direction direction;
