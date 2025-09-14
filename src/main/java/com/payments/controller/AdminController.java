@@ -7,7 +7,10 @@ import com.payments.service.UserService;
 import com.payments.util.UI;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class AdminController {
 
@@ -26,11 +29,23 @@ public class AdminController {
                 }
             }
             case 5 -> {
-                List<com.payments.model.RoleRequest> requests = userService.listPendingRoleRequests();
+                List<RoleRequest> requests = userService.listPendingRoleRequests();
                 if (requests.isEmpty()) {
                     UI.printInfo("No pending requests.");
                 } else {
-                    requests.forEach(r -> System.out.println("Request ID: " + r.getId() + ", User ID: " + r.getUserId() + ", Role: " + r.getRoleName()));
+                    UserRepositoryImpl userRepository = new UserRepositoryImpl();
+                    Map<Long, User> usersById = userRepository.findAll().stream()
+                            .collect(Collectors.toMap(User::getId, Function.identity()));
+
+                    requests.forEach(r -> {
+                        User user = usersById.get(r.getUserId());
+                        String fullName = (user != null) ? user.getFullName() : "Unknown User";
+                        System.out.println("Request ID: " + r.getId() +
+                                ", User ID: " + r.getUserId() +
+                                ", Name: " + fullName +
+                                ", Requested Role: " + r.getRoleName());
+                    });
+
                     System.out.print("Enter request ID to review: ");
                     long requestId = Long.parseLong(scanner.nextLine());
                     System.out.print("Approve? (yes/no): ");
@@ -38,6 +53,7 @@ public class AdminController {
                     userService.reviewRoleRequest(currentUser.getId(), requestId, approve);
                 }
             }
+
             case 6 -> paymentController.generateMonthlyReport(currentUser);
             case 7 -> paymentController.generateQuarterlyReport(currentUser);
             case 8 -> paymentController.viewReportHistory();

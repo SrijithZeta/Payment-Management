@@ -217,7 +217,6 @@ public class UserService {
 
             if (approve) {
                 assignRole(adminId, userId, roleName);
-                System.out.println("Role " + roleName + " assigned to user ID: " + userId);
             } else {
                 System.out.println("Role request rejected.");
             }
