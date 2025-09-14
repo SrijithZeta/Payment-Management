@@ -37,41 +37,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "JUnit.AllTests.executor": "Coverage",
-    "JUnit.ExceptionTest.executor": "Run",
-    "JUnit.ExceptionTest.testAuthenticationException_Inheritance.executor": "Coverage",
-    "JUnit.PaymentServiceTest.executor": "Coverage",
-    "JUnit.PaymentServiceTest.testCreatePayment_Unauthorized.executor": "Run",
-    "JUnit.PaymentServiceTest.testDirectionEnum_Values.executor": "Run",
-    "JUnit.PaymentServiceTest.testUpdatePaymentStatus_NonAuthorizedUser_ThrowsException.executor": "Run",
-    "JUnit.PaymentServiceTest.testUpdatePaymentStatus_PaymentNotFound.executor": "Run",
-    "JUnit.UserServiceTest.executor": "Coverage",
-    "JUnit.UserServiceTest.testAssignRole_NonAdmin_ThrowsAuthenticationException.executor": "Run",
-    "JUnit.UserServiceTest.testLoginFailureWrongPassword.executor": "Run",
-    "JUnit.UserServiceTest.testLoginSuccess.executor": "Debug",
-    "JUnit.UserServiceTest.testLogin_InvalidCredentials_ReturnsEmpty.executor": "Run",
-    "JUnit.UserServiceTest.testReviewRoleRequest_NonAdmin_ThrowsAuthenticationException.executor": "Run",
-    "Maven.payments-management [clean].executor": "Run",
-    "Maven.payments-management [compile].executor": "Run",
-    "Maven.payments-management [package].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_directory_selection": "/Users/srijithreddy/Documents/Track1/Payment-Management/src/main/java/com/payments/exception",
-    "last_opened_file_path": "/Users/srijithreddy/Documents/Track1/Payment-Management/src/main/java/com/payments",
-    "onboarding.tips.debug.path": "/Users/srijithreddy/Documents/Track1/PaymentManagement/src/main/java/tech/zeta/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "vcs.Git"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AllTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ExceptionTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ExceptionTest.testAuthenticationException_Inheritance.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.PaymentServiceTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.PaymentServiceTest.testCreatePayment_Unauthorized.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PaymentServiceTest.testDirectionEnum_Values.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PaymentServiceTest.testUpdatePaymentStatus_NonAuthorizedUser_ThrowsException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PaymentServiceTest.testUpdatePaymentStatus_PaymentNotFound.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.UserServiceTest.testAssignRole_NonAdmin_ThrowsAuthenticationException.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.testLoginFailureWrongPassword.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.testLoginSuccess.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.UserServiceTest.testLogin_InvalidCredentials_ReturnsEmpty.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.testReviewRoleRequest_NonAdmin_ThrowsAuthenticationException.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.payments-management [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.payments-management [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.payments-management [package].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;/Users/srijithreddy/Documents/Track1/Payment-Management/src/main/java/com/payments/exception&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/srijithreddy/Documents/Track1/Payment-Management/src/main/java/com/payments&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/Users/srijithreddy/Documents/Track1/PaymentManagement/src/main/java/tech/zeta/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/com/payments" />
@@ -94,7 +94,7 @@
       <recent name="com.payments.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.AllTests">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.payments.Main" />
       <module name="PaymentManagement" />
@@ -263,7 +263,23 @@
       <option name="project" value="LOCAL" />
       <updated>1757848802275</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Done testing , code coverage , adding Diagrams , Readme">
+      <option name="closed" value="true" />
+      <created>1757849356577</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1757849356577</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Done testing , code coverage , adding Diagrams , Readme">
+      <option name="closed" value="true" />
+      <created>1757849377619</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1757849377619</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
