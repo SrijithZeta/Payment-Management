@@ -111,20 +111,31 @@ public class UserRepositoryImpl implements UserRepository {
 //    }
 
 
-
     @Override
     public void delete(Long id) {
+        String deleteRoleRequests = "DELETE FROM role_requests WHERE user_id=?";
+        String deleteUser = "DELETE FROM users WHERE id=?";
+        try (Connection connection = DatabaseConfig.getConnection()) {
+            connection.setAutoCommit(false);
+            try (PreparedStatement ps1 = connection.prepareStatement(deleteRoleRequests);
+                 PreparedStatement ps2 = connection.prepareStatement(deleteUser)) {
 
-        String sql = "DELETE FROM users WHERE id=?";
-        try {
-            Connection connection = DatabaseConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
-            preparedStatement.executeUpdate();
+                ps1.setLong(1, id);
+                ps1.executeUpdate();
+
+                ps2.setLong(1, id);
+                ps2.executeUpdate();
+
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new RuntimeException(e);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
 
 
 
